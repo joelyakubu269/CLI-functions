@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
+	"flag"
 )
 
 func main() {
@@ -66,12 +66,4 @@ func main() {
 
 	}
 
-}
-func parseID(arg string) int {
-	id, err := strconv.Atoi(arg)
-	if err != nil {
-		log.Fatal(err)
-
-	}
-	return id
 }
