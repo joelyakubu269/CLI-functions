@@ -20,12 +20,12 @@ func main() {
 		addCmd.Parse(os.Args[2:])
 		AddTask(*description)
 	case "list":
+		listCmd := flag.NewFlagSet("list", flag.ExitOnError)
+		listCmd.Parse(os.Args[2:])
 		ListTasks()
 	case "delete":
-		if len(os.Args) != 3 {
-			fmt.Println("usage: deelete <Id>")
-			return
-		}
+		deleteCmd := flag.NewFlagSet("delete", flag.ExitOnError)
+		id := deleteCmd.Int("id")
 
 		id := parseID(os.Args[2])
 		deleteTask(id)
