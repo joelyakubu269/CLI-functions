@@ -41,18 +41,24 @@ func main() {
 		id := doneCmd.Int("id", 0, "id of the task to be marked done")
 		doneCmd.Parse(os.Args[2:])
 		markTaskDone(*id)
-	case "in-progress":
-		inProgCmd := flag.NewFlagSet("inProgress", flag.ExitOnError)
-		id := inProgCmd.Int("id", 0, "id which status is to be checked")
+	case "taskInProgress":
+		inProgCmd := flag.NewFlagSet("taskInProgress", flag.ExitOnError)
+		id := inProgCmd.Int("id", 0, "id which status is to be marked as task in Progress")
 		inProgCmd.Parse(os.Args[2:])
 		markTaskInprogress(*id)
 	case "done-list":
+		doneListCmd := flag.NewFlagSet("done-list", flag.ExitOnError)
+		doneListCmd.Parse(os.Args[2:])
 		ListByStatus("done")
 
 	case "progress-list":
+		inProgressCmd := flag.NewFlagSet("done-list", flag.ExitOnError)
+		inProgressCmd.Parse(os.Args[2:])
 		ListByStatus("in-progress")
 
 	case "todo-list":
+		todoCmd := flag.NewFlagSet("notDone-list", flag.ExitOnError)
+		todoCmd.Parse(os.Args[2:])
 		ListByStatus("todo")
 	default:
 		fmt.Println("Unknown command:", command)
