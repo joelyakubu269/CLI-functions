@@ -25,25 +25,22 @@ func main() {
 		ListTasks()
 	case "delete":
 		deleteCmd := flag.NewFlagSet("delete", flag.ExitOnError)
-		id := deleteCmd.Int("id")
+		id := deleteCmd.Int("id", 0, "id of task to be deleted")
+		deleteCmd.Parse()
 
-		id := parseID(os.Args[2])
-		deleteTask(id)
+		deleteTask(*id)
 	case "update":
-		if len(os.Args) != 4 {
-			fmt.Println("usage: update <id> <description>")
-			return
-		}
-		id := parseID(os.Args[2])
-		description := os.Args[3]
-		updateTask(id, description)
+		upCmd := flag.NewFlagSet("update", flag.ExitOnError)
+		id := upCmd.Int("id", 0, "id of the task you want to update")
+		description := upCmd.String("description", "", "description of the task you want to update")
+		upCmd.Parse(os.Args[2:])
+
+		updateTask(*id, *description)
 	case "done":
-		if len(os.Args) < 3 {
-			fmt.Println("Usage: done <id>")
-			return
-		}
-		id := parseID(os.Args[2])
-		markTaskDone(id)
+		doneCmd := flag.NewFlagSet("done", flag.ExitOnError)
+		id := doneCmd.Int("id", 0, "id of the task to be marked done")
+		doneCmd.Parse(os.Args[2:])
+		markTaskDone(*id)
 	case "in-progress":
 		if len(os.Args) < 3 {
 			fmt.Println("Usage: done <id>")
