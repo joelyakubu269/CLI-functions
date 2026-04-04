@@ -26,7 +26,7 @@ func main() {
 	case "delete":
 		deleteCmd := flag.NewFlagSet("delete", flag.ExitOnError)
 		id := deleteCmd.Int("id", 0, "id of task to be deleted")
-		deleteCmd.Parse()
+		deleteCmd.Parse(os.Args[2:])
 
 		deleteTask(*id)
 	case "update":
@@ -42,12 +42,10 @@ func main() {
 		doneCmd.Parse(os.Args[2:])
 		markTaskDone(*id)
 	case "in-progress":
-		if len(os.Args) < 3 {
-			fmt.Println("Usage: done <id>")
-			return
-		}
-		id := parseID(os.Args[2])
-		markTaskInprogress(id)
+		inProgCmd := flag.NewFlagSet("inProgress", flag.ExitOnError)
+		id := inProgCmd.Int("id", 0, "id which status is to be checked")
+		inProgCmd.Parse(os.Args[2:])
+		markTaskInprogress(*id)
 	case "done-list":
 		ListByStatus("done")
 
