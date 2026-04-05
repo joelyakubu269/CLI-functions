@@ -18,6 +18,12 @@ func main() {
 
 		description := addCmd.String("description", "", "add a description of the task")
 		addCmd.Parse(os.Args[2:])
+
+		if *description == "" {
+			fmt.Println("Error: description is required")
+			addCmd.Usage()
+			return
+		}
 		AddTask(*description)
 	case "list":
 		listCmd := flag.NewFlagSet("list", flag.ExitOnError)
@@ -46,18 +52,18 @@ func main() {
 		id := inProgCmd.Int("id", 0, "id which status is to be marked as task in Progress")
 		inProgCmd.Parse(os.Args[2:])
 		markTaskInprogress(*id)
-	case "done-list":
+	case "list-done":
 		doneListCmd := flag.NewFlagSet("done-list", flag.ExitOnError)
 		doneListCmd.Parse(os.Args[2:])
 		ListByStatus("done")
 
-	case "progress-list":
-		inProgressCmd := flag.NewFlagSet("done-list", flag.ExitOnError)
+	case "list-progress":
+		inProgressCmd := flag.NewFlagSet("progress-list", flag.ExitOnError)
 		inProgressCmd.Parse(os.Args[2:])
 		ListByStatus("in-progress")
 
-	case "todo-list":
-		todoCmd := flag.NewFlagSet("notDone-list", flag.ExitOnError)
+	case "list-todo":
+		todoCmd := flag.NewFlagSet("todo-list", flag.ExitOnError)
 		todoCmd.Parse(os.Args[2:])
 		ListByStatus("todo")
 	default:
