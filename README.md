@@ -1,127 +1,151 @@
-# CLI-functions
-This is a simple todo list using golang , CLI and json(for storing tasks in a local file)
-# https://roadmap.sh/projects/task-tracker
-# 📝 Task Tracker CLI
 
-Simple CLI tool to manage tasks.
 
----
+````markdown
+# Task CLI
 
-## 🚀 Usage
-
-```bash
-go run . <command> [arguments]
-```
+A simple Go command-line application to manage tasks. You can add, update, delete, and mark tasks as done or in progress, and list tasks by status.
 
 ---
 
-## ➕ Add Task
+## Features
 
-```bash
-go run . add "brush my teeth"
-```
-
----
-
-## 📋 List Tasks
-
-```bash
-go run . list
-```
-
-```
-ID: 1 | brush my teeth | status: todo | created: 2026-03-23 22:10:00
-```
+- Add tasks with a description
+- List all tasks
+- Update task descriptions
+- Delete tasks
+- Mark tasks as done or in-progress
+- List tasks by status (done, in-progress, todo)
+- Per-command help with usage
 
 ---
 
-## ✏️ Update Task
+## Installation
+
+1. **Clone the repository:**
 
 ```bash
-go run . update 1 "brush my teeth and wash face"
+git clone <https://github.com/joelyakubu269/CLI-functions>
+cd cliApp
+````
+
+2. **Build the binary (if not built yet or after code changes):**
+
+```bash
+go build -o taskcli
+``
+
+3. **Optional: Move the binary to your PATH:**
+
+```bash
+mv taskcli ~/go/bin/
+export PATH=$PATH:~/go/bin
 ```
+
+Now you can run `taskcli` from anywhere.
 
 ---
 
-## ❌ Delete Task
+## Usage
+
+Run commands as:
 
 ```bash
-go run . delete 1
+./taskcli <command> [flags]
 ```
+
+Use `./taskcli help` to see all available commands.
 
 ---
 
-## ✅ Mark as Done
+## Commands
+
+### 1. Add a Task
 
 ```bash
-go run . done 1
+./taskcli add -description "Buy groceries"
 ```
+
+* Adds a new task with a description.
+* `-description` is **required**.
 
 ---
 
-## 🔄 Mark as In Progress
+### 2. List All Tasks
 
 ```bash
-go run . in-progress 1
+./taskcli list
 ```
+
+* Lists all tasks with their IDs, description, and status.
 
 ---
 
-## 📌 Filter Tasks
-
-### Done
+### 3. Delete a Task
 
 ```bash
-go run . done-list
+./taskcli delete -id 4
 ```
 
-### In Progress
-
-```bash
-go run . progress-list
-```
-
-### Todo
-
-```bash
-go run . todo-list
-```
+* Deletes the task with the given ID.
+* `-id` is **required**.
 
 ---
 
-## 📁 Storage
+### 4. Update a Task
 
-```
-tasks.json
+```bash
+./taskcli update -id 2 -description "Complete homework"
 ```
 
-(auto-created)
+* Updates the description of a task with the given ID.
+* Both `-id` and `-description` are **required**.
 
 ---
 
-## ⚠️ Notes
+### 5. Mark Task Done
 
 ```bash
-# Use quotes for multiple words
-go run . add "buy groceries and cook"
-
-# ID must be a number
-go run . delete 2
+./taskcli done -id 3
 ```
+
+* Marks the task with the given ID as done.
+* `-id` is **required**.
 
 ---
 
-## 🧪 Example Flow
+### 6. Mark Task In Progress
 
 ```bash
-go run . add "learn Go"
-go run . add "build CLI"
-
-go run . list
-
-go run . in-progress 1
-go run . done 1
-
-go run . done-list
+./taskcli taskInProgress -id 2
 ```
+
+* Marks the task with the given ID as in-progress.
+* `-id` is **required**.
+
+---
+
+### 7. List Tasks by Status
+
+```bash
+./taskcli list-done      # Completed tasks
+./taskcli list-progress  # Tasks in progress
+./taskcli list-todo      # Pending tasks
+```
+
+* These commands **don’t require flags**.
+
+---
+
+### 8. Help
+
+```bash
+./taskcli help
+```
+
+* Shows all commands and their usage.
+
+````
+
+---
+
 
