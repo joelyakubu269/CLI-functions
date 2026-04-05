@@ -66,6 +66,26 @@ func main() {
 		todoCmd := flag.NewFlagSet("todo-list", flag.ExitOnError)
 		todoCmd.Parse(os.Args[2:])
 		ListByStatus("todo")
+	case "help":
+		flag.Usage = func() {
+
+			fmt.Println("Task CLI - Available Commands:")
+			fmt.Println()
+
+			fmt.Println("Commands:")
+			fmt.Println("  add             Add a new task")
+			fmt.Println("  list            List all tasks")
+			fmt.Println("  delete          Delete a task")
+			fmt.Println("  update          Update a task")
+			fmt.Println("  done            Mark task as done")
+			fmt.Println("  taskInProgress  Mark task as in progress")
+			fmt.Println("  done-list       List completed tasks")
+			fmt.Println("  progress-list   List tasks in progress")
+			fmt.Println("  todo-list       List pending tasks")
+			fmt.Println("  help            Show this help message")
+			flag.PrintDefaults()
+		}
+		flag.Usage()
 	default:
 		fmt.Println("Unknown command:", command)
 
